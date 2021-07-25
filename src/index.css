@@ -18,3 +18,16 @@ a:active {
     text-decoration: none;
     color: inherit;
 }
+.btn-toggle {
+    margin: 0px 0px 25px 0px;
+    /* background-color: #fff; */
+    border: 'none';
+    background-color: #0B195E; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
