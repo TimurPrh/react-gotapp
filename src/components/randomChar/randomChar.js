@@ -7,14 +7,23 @@ import ErrorMessage from '../errorMessage';
 export default class RandomChar extends Component {
     constructor(props) {
         super(props);
-        this.updateChar();
         this.state = {
             char: {},
             loading: true,
             error: false
         };
+        this.updateChar = this.updateChar.bind(this);
     }
     gotService = new gotService();
+
+    componentDidMount() {
+        this.updateChar();
+        this.timerId = setInterval(this.updateChar, 2000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
 
     onCharLoaded = (char) => {
         this.setState({
@@ -57,7 +66,14 @@ export default class RandomChar extends Component {
 }
 
 const View = ({char}) => {
+    for (let key in char) {
+        if (!char[key]) {
+            char[key] = '-';
+        }
+    }
+
     const {name, gender, born, died, culture} = char;
+
     return (
         <>
             <h4>Random Character: {name}</h4>
