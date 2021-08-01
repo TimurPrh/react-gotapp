@@ -1,61 +1,57 @@
 import React from 'react';
-import {Col, Row, Container, Button} from 'reactstrap';
+import './app.css';
+import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
-import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import {InitPage, CharacterPage, HousePage, BookPage, BookItem} from '../pages'
+import {BrowserRouter as Router, Route, useLocation, Link} from 'react-router-dom';
+import { Switch, withRouter } from 'react-router';
 
-
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visibleChar: true
-        }
-        this.toggleRandomChar = this.toggleRandomChar.bind(this);
-    }
-
-    componentDidMount() {
-        const btn = document.querySelector('.btn-toggle');
-        console.log('done');
-        console.dir(btn.style);
-    }
-
-    toggleRandomChar() {
-        this.setState({
-            visibleChar: !this.state.visibleChar
-        });
-
-    }
-    
+export default class App extends React.Component {    
     render() {
-        const visibleChar = this.state.visibleChar ? <RandomChar/> : null;
         return(
-            <> 
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {visibleChar}
-                            <button
-                                className='btn-toggle' 
-                                // color="info" 
-                                onClick={this.toggleRandomChar}>Toggle random character
-                            </button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
-                </Container>
-            </>
+            <Router>
+                <div className='app'>
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Switch>
+                            <Route path='/' exact component={InitPage}/>
+                            <Route path='/characters/' exact component={CharacterPage}/>
+                            <Route path='/houses/' exact component={HousePage}/>
+                            <Route path='/books/' exact component={BookPage}/>
+                            <Route path='/books/:id' render={
+                                ({match}) => {
+                                    const {id} = match.params;
+                                    return <BookItem bookId={id} />
+                                }
+                            } />
+                            {/* <Route path='/books/:id' component={withRouter((props) => {
+                                const {id} = props.match.params;
+                                return(
+                                    <BookItem bookId={id} />
+                                )
+                            })} /> */}
+                            <Route path="*">
+                                <NotFound />
+                            </Route>
+                        </Switch>
+                    </Container>
+                </div>
+            </Router>
         )
     }
 };
+
+function NotFound() {
+    let location = useLocation();
+  
+    return (
+      <div>
+        <h3>
+          No match for "{location.pathname}"
+        </h3>
+        <Link id='redir' to='/'>Go to Main</Link>
+      </div>
+    );
+}
