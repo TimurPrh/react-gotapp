@@ -59,15 +59,9 @@ export default class ItemDetails extends Component {
         }
 
         let itemType = this.props.itemType;
-<<<<<<< HEAD
         // if (!itemType) {
         //     itemType = 'item';
         // }
-=======
-        if (!itemType) {
-            itemType = 'item';
-        }
->>>>>>> c38b95c15d791874a3d520c92f248acf42566b25
 
         if (item === null) {
             return <span className="select-error">Please, select a {itemType}</span>
@@ -94,12 +88,8 @@ export default class ItemDetails extends Component {
             </div>
         );
     }
-<<<<<<< HEAD
 };
 
 ItemDetails.defaultProps = {
     itemType: 'item'
 };
-=======
-}
->>>>>>> c38b95c15d791874a3d520c92f248acf42566b25
