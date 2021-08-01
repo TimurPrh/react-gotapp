@@ -10,7 +10,11 @@ class BookPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+<<<<<<< HEAD
             selectedBook: null,
+=======
+            // selectedBook: null,
+>>>>>>> c38b95c15d791874a3d520c92f248acf42566b25
             error: false
         }
         // this.onBookSelected = this.onBookSelected.bind(this);
